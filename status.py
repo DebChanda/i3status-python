@@ -8,6 +8,10 @@ from subprocess import check_output
 from sys import stdout
 from time import sleep
 
+
+class block():
+    pass
+
 def write(data):
     stdout.write('%s\n' % data)
     stdout.flush()
