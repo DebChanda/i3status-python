@@ -66,3 +66,21 @@ class Battery(Block):
         self.data["short_text"] = status_short + str(percentage) + "%"
 
         return json.dumps(self.data)
+
+
+class Disk(Block):
+    def gen_text(self):
+        if self.data["instance"] == None:
+            self.data["full_text"] = None
+        else:
+            self.data["full_text"] = self.data["instance"] + ": " + bytes2human(disk_usage(self.data["instance"]).free)
+
+        return json.dumps(self.data)
+
+
+class Brightness(Block):
+    def gen_text(self):
+        self.data["full_text"] = "Brightness: " + str(round(float(check_output("light -G", shell=True).strip().decode("utf-8")))) + "%"
+        self.data["short_text"] = "SB: " + str(round(float(check_output("light -G", shell=True).strip().decode("utf-8")))) + "%"
+
+        return json.dumps(self.data)
